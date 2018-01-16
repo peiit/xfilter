@@ -1,0 +1,54 @@
+body {
+  font-size: 16px;
+  font-family: Menlo,Courier,'Hiragino Sans GB',STHeiti,'Microsoft YaHei','Wenquanyi Micro Hei','WenQuanYi Micro Hei Mono','WenQuan Yi Zen Hei','WenQuanYi Zen Hei Mono',LiGothicMed,'Han Heiti GB',monospace,monospace,sans-serif;
+  background-color: #F5F1F1;
+  color: #3e3e3e;
+}
+
+.container {
+  min-width: 768px;
+  margin: 0 auto;
+}
+.content {
+  margin: 0 auto;
+  padding: 10px 10px 0 10px;
+  width: 400px;
+  min-height: 800px;
+  background-color: #ffffff;
+}
+.text {
+  width: 300px;
+  height: 26px;
+  border-radius: 8px;
+  border: solid #4CAF50 1px;
+  padding: 2px;
+}
+.button {
+  height: 30px;
+  width: 80px;
+  border-radius: 6px;
+  border: solid #00BCD4 1px;
+  color: #ffffff;
+  background-color: #00BCD4;
+}
+.title {
+  margin: 10px;
+  text-align: center;
+}
+
+p {
+  line-height: 18px;
+  height: 10px;
+}
+.sample{
+  border-bottom: 1px dashed #ddd;
+}
+.sample-predict{
+  color: #00BCD4;
+}
+.sample-filter{
+  color: #E91E63;
+}
+.uploaded {
+  float: right;
+}

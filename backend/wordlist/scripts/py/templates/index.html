@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>文本内容过滤系统管理</title>
+  <link rel="stylesheet" type="text/css" href="static/css/index.css">
+</head>
+<body>
+<div class="container">
+  <div class="content">
+    <div class="title">
+      <strong>文本内容过滤系统管理</strong>
+    </div>
+    <div>
+      <input class="text" name="text" placeholder="请输入待分类文本" id="input"></input>
+      <button type="button" name="button" class="button" id="button">提交</button>
+    </div>
+    <form>
+      <select name="type">
+        <option value="train">训练集</option>
+        <option value="test">测试集</option>
+        <option value="sensitive">关键词词典</option>
+      </select>
+      <input type="file" name="file"/>
+      <input type="submit" value="上传" id="upload">
+    </form>
+    <div class="uploaded-message" id="message"></div>
+    <div class="predict" id="predict"></div>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/index.js"></script>
+</html>
