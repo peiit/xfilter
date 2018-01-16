@@ -1,0 +1,34 @@
+{
+	"build": "env GOPATH=$(pwd) $GO get cuckood/...",
+	"checkout": "master",
+	"experiment": "Vary cores",
+	"keep-stdout": true,
+	"iterations": 20,
+	"parallelism": 1,
+	"versions": {
+		"cucache-$cores": {
+			"vary": {
+				"cores": "range(2,21,2)"
+			},
+			"arguments": [
+				"$SRC/benchmark/bench.sh",
+				"$cores",
+				"60",
+				"$SRC/bin/cucache"
+			]
+		},
+		"memcached-$cores": {
+			"vary": {
+				"cores": "range(2,21,2)"
+			},
+			"arguments": [
+				"$SRC/benchmark/bench.sh",
+				"$cores",
+				"60",
+				"memcached",
+				"-t",
+				"SCORES"
+			]
+		}
+	}
+}

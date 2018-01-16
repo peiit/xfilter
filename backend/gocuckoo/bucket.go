@@ -1,6 +1,8 @@
 package cuckoo
 
-import "github.com/willf/bitset"
+import (
+	"github.com/willf/bitset"
+)
 
 type bucketContainer struct {
 	_buckets []*bucket
