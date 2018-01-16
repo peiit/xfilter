@@ -1,0 +1,10 @@
+{
+    "Addrs": [
+        "127.0.0.1:27017"
+    ],
+    "Database": "kwf",
+    "KeywordsColl": "keywords",
+    "SymbolsColl": "symbols",
+	"#Timeout":"connect timeout, unit/s",
+    "Timeout": 5
+}
