@@ -5,4 +5,6 @@ var (
 	defaultCaseSensitive = false
 )
 
-const bomHead = 65279
+const (
+	bomHead = 65279
+)

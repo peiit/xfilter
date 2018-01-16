@@ -1,8 +1,4 @@
-// MIT License
-
-// Copyright (c) 2016 rutcode-go
-
-package filter
+package target
 
 type FilterRepo interface {
 	// Set filter timeout: is second, and must be above zero.

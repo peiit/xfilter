@@ -1,16 +1,14 @@
-package cfilter_test
+package cfilter
 
 import (
 	"bufio"
 	"hash/fnv"
 	"os"
 	"testing"
-
-	"github.com/irfansharif/cfilter"
 )
 
 func TestMultipleInsertions(t *testing.T) {
-	cf := cfilter.New()
+	cf := New()
 
 	fd, err := os.Open("/usr/share/dict/words")
 	if err != nil {
@@ -45,7 +43,7 @@ func TestMultipleInsertions(t *testing.T) {
 }
 
 func TestBasicInsertion(t *testing.T) {
-	cf := cfilter.New()
+	cf := New()
 	if !cf.Insert([]byte("buongiorno")) {
 		t.Errorf("Wasn't able to insert very first word, 'buongiorno'")
 	}
@@ -74,7 +72,7 @@ func TestBasicInsertion(t *testing.T) {
 }
 
 func TestInitialization(t *testing.T) {
-	cf := cfilter.New()
+	cf := New()
 	size := cf.Count()
 	if size != 0 {
 		t.Errorf("Expected initial size to be 0, not %d", size)
@@ -82,12 +80,12 @@ func TestInitialization(t *testing.T) {
 }
 
 func TestConfigurationOptions(t *testing.T) {
-	cf := cfilter.New(
-		cfilter.Size(1<<18),
-		cfilter.BucketSize(4),
-		cfilter.FingerprintSize(2),
-		cfilter.MaximumKicks(500),
-		cfilter.HashFn(fnv.New64()),
+	cf := New(
+		Size(1<<18),
+		BucketSize(4),
+		FingerprintSize(2),
+		MaximumKicks(500),
+		HashFn(fnv.New64()),
 	)
 	size := cf.Count()
 	if size != 0 {
@@ -96,7 +94,7 @@ func TestConfigurationOptions(t *testing.T) {
 }
 
 func BenchmarkInsertionAndDeletion(b *testing.B) {
-	cf := cfilter.New()
+	cf := New()
 	for n := 0; n < b.N; n++ {
 		cf.Insert([]byte("buongiorno"))
 		cf.Delete([]byte("buongiorno"))

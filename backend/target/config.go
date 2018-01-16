@@ -3,7 +3,6 @@ package target
 import (
 	"errors"
 	"time"
-	// "github.com/sniperkit/xfilter/backend/target"
 )
 
 type Filter struct {
@@ -16,9 +15,6 @@ func NewFilter() (*Filter, error) {
 
 	factory := &Filter{}
 	factory.backend = New()
-	//for filterName, filterNameFunction := range cfg.Filters {
-	//	factory.backend.AddFilterFunc(filterName, filterNameFunction)
-	//}
 
 	return factory, nil
 }

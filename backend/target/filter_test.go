@@ -1,8 +1,4 @@
-// MIT License
-
-// Copyright (c) 2016 rutcode-go
-
-package filter_test
+package filter
 
 import (
 	"reflect"
@@ -10,8 +6,6 @@ import (
 	"time"
 
 	. "github.com/smartystreets/goconvey/convey"
-
-	"github.com/go-rut/target-filter"
 )
 
 const (
@@ -19,7 +13,7 @@ const (
 )
 
 var (
-	manager = filter.New()
+	manager = New()
 )
 
 func init() {
@@ -33,7 +27,7 @@ func TestTarget(t *testing.T) {
 		Convey("when xxxx not in map", func() {
 			Convey("will be not filtered", func() {
 				filtered, e := manager.Compare(
-					&filter.FilterParams{Names: []string{"xxxx"}},
+					&FilterParams{Names: []string{"xxxx"}},
 					nil, nil)
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeFalse)
@@ -42,7 +36,7 @@ func TestTarget(t *testing.T) {
 		Convey("when FilterTestFuncEquals in map", func() {
 			Convey("will get FilterTestFuncEquals' dememsions", func() {
 				filtered, e := manager.Compare(
-					&filter.FilterParams{
+					&FilterParams{
 						Names: []string{FilterTestFuncEquals}},
 					nil, nil)
 				So(e, ShouldBeNil)
@@ -55,38 +49,38 @@ func TestTarget(t *testing.T) {
 		Convey("when filter test_key does not equal", func() {
 			Convey("will pass the filter", func() {
 				filtered, e := manager.Compare(
-					&filter.FilterParams{
+					&FilterParams{
 						Names: []string{FilterTestFuncEquals}},
 					nil,
-					filter.FilterValues{})
+					FilterValues{})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeFalse)
 
 				filtered, e = manager.Compare(
-					&filter.FilterParams{Names: []string{FilterTestFuncEquals}},
-					filter.InputValues{testKeyEquals: ""},
-					filter.FilterValues{})
+					&FilterParams{Names: []string{FilterTestFuncEquals}},
+					InputValues{testKeyEquals: ""},
+					FilterValues{})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeFalse)
 
 				filtered, e = manager.Compare(
-					&filter.FilterParams{Names: []string{FilterTestFuncEquals}},
-					filter.InputValues{testKeyEquals: "1", testKeyInt: 0},
-					filter.FilterValues{testKeyEquals: "2"})
+					&FilterParams{Names: []string{FilterTestFuncEquals}},
+					InputValues{testKeyEquals: "1", testKeyInt: 0},
+					FilterValues{testKeyEquals: "2"})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeFalse)
 
 				filtered, e = manager.Compare(
-					&filter.FilterParams{Names: []string{FilterTestFuncEquals}},
-					filter.InputValues{testKeyEquals: 1, testKeyInt: 2},
-					filter.FilterValues{testKeyEquals: 2})
+					&FilterParams{Names: []string{FilterTestFuncEquals}},
+					InputValues{testKeyEquals: 1, testKeyInt: 2},
+					FilterValues{testKeyEquals: 2})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeFalse)
 
 				filtered, e = manager.Compare(
-					&filter.FilterParams{Names: []string{FilterTestFuncEquals}},
-					filter.InputValues{testKeyEquals: 1, testKeyInt: 2},
-					filter.FilterValues{testKeyEquals: 2})
+					&FilterParams{Names: []string{FilterTestFuncEquals}},
+					InputValues{testKeyEquals: 1, testKeyInt: 2},
+					FilterValues{testKeyEquals: 2})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeFalse)
 			})
@@ -94,16 +88,16 @@ func TestTarget(t *testing.T) {
 		Convey("when filter values' key exist", func() {
 			Convey("will be filtered", func() {
 				filtered, e := manager.Compare(
-					&filter.FilterParams{Names: []string{FilterTestFuncEquals}},
-					filter.InputValues{},
-					filter.FilterValues{testKeyEquals: "1"})
+					&FilterParams{Names: []string{FilterTestFuncEquals}},
+					InputValues{},
+					FilterValues{testKeyEquals: "1"})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeTrue)
 
 				filtered, e = manager.Compare(
-					&filter.FilterParams{Names: []string{FilterTestFuncEquals}},
-					filter.InputValues{testKeyEquals: "1"},
-					filter.FilterValues{testKeyEquals: "1"})
+					&FilterParams{Names: []string{FilterTestFuncEquals}},
+					InputValues{testKeyEquals: "1"},
+					FilterValues{testKeyEquals: "1"})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeTrue)
 			})
@@ -111,19 +105,19 @@ func TestTarget(t *testing.T) {
 		Convey("when filter has two more names", func() {
 			Convey("will be filtered", func() {
 				filtered, e := manager.Compare(
-					&filter.FilterParams{Names: []string{
+					&FilterParams{Names: []string{
 						FilterTestFuncEquals,
 						FilterTestFuncTestInt}},
-					filter.InputValues{testKeyEquals: "2", testKeyInt: "1"},
-					filter.FilterValues{testKeyEquals: "1"})
+					InputValues{testKeyEquals: "2", testKeyInt: "1"},
+					FilterValues{testKeyEquals: "1"})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeTrue)
 
 				filtered, e = manager.Compare(
-					&filter.FilterParams{Names: []string{
+					&FilterParams{Names: []string{
 						FilterTestFuncTestInt, FilterTestFuncEquals}},
-					filter.InputValues{testKeyEquals: "1", testKeyInt: 2},
-					filter.FilterValues{testKeyEquals: "1"})
+					InputValues{testKeyEquals: "1", testKeyInt: 2},
+					FilterValues{testKeyEquals: "1"})
 				So(e, ShouldBeNil)
 				So(filtered, ShouldBeTrue)
 			})
@@ -133,46 +127,46 @@ func TestTarget(t *testing.T) {
 	Convey("test sequence filter", t, func() {
 		Convey("will be filtered", func() {
 			filtered, e := manager.Compare(
-				&filter.FilterParams{
-					Type: filter.CompareTypeConsistent,
+				&FilterParams{
+					Type: CompareTypeConsistent,
 					Names: []string{
 						FilterTestFuncEquals,
 						FilterTestFuncTestInt}},
-				filter.InputValues{},
-				filter.FilterValues{testKeyEquals: "1"})
+				InputValues{},
+				FilterValues{testKeyEquals: "1"})
 			So(e, ShouldBeNil)
 			So(filtered, ShouldBeTrue)
 
 			filtered, e = manager.Compare(
-				&filter.FilterParams{
-					Type: filter.CompareTypeConsistent,
+				&FilterParams{
+					Type: CompareTypeConsistent,
 					Names: []string{
 						FilterTestFuncEquals,
 						FilterTestFuncTestInt}},
-				filter.InputValues{testKeyEquals: "1"},
-				filter.FilterValues{testKeyEquals: "1"})
+				InputValues{testKeyEquals: "1"},
+				FilterValues{testKeyEquals: "1"})
 			So(e, ShouldBeNil)
 			So(filtered, ShouldBeTrue)
 
 			filtered, e = manager.Compare(
-				&filter.FilterParams{
-					Type: filter.CompareTypeConsistent,
+				&FilterParams{
+					Type: CompareTypeConsistent,
 					Names: []string{
 						FilterTestFuncEquals,
 						FilterTestFuncTestInt}},
-				filter.InputValues{testKeyEquals: 2, testKeyInt: 2},
-				filter.FilterValues{testKeyEquals: 2})
+				InputValues{testKeyEquals: 2, testKeyInt: 2},
+				FilterValues{testKeyEquals: 2})
 			So(e, ShouldBeNil)
 			So(filtered, ShouldBeTrue)
 
 			filtered, e = manager.Compare(
-				&filter.FilterParams{
-					Type: filter.CompareTypeConsistent,
+				&FilterParams{
+					Type: CompareTypeConsistent,
 					Names: []string{
 						FilterTestFuncEquals,
 						FilterTestFuncTestInt}},
-				filter.InputValues{testKeyEquals: 1, testKeyInt: "2"},
-				filter.FilterValues{testKeyEquals: 2})
+				InputValues{testKeyEquals: 1, testKeyInt: "2"},
+				FilterValues{testKeyEquals: 2})
 			So(e, ShouldBeNil)
 			So(filtered, ShouldBeTrue)
 		})
@@ -183,7 +177,7 @@ func TestTarget(t *testing.T) {
 			Convey("will return error", func() {
 
 				e := manager.SetFilterTimeout(-1)
-				So(e.Error(), ShouldEqual, filter.ErrTimeoutMustAboveZero.New().Error())
+				So(e.Error(), ShouldEqual, ErrTimeoutMustAboveZero.New().Error())
 			})
 		})
 		manager.AddFilterFunc(FilterTestFuncTimeout, FilterTestTimeout)
@@ -192,10 +186,10 @@ func TestTarget(t *testing.T) {
 			Convey("will timeout", func() {
 
 				filtered, e := manager.Compare(
-					&filter.FilterParams{Names: []string{FilterTestFuncTimeout}},
-					filter.InputValues{testKeyEquals: 1, testKeyInt: "2"},
-					filter.FilterValues{testKeyEquals: 2})
-				So(e.Error(), ShouldEqual, filter.ErrFailedExecTimeout.New().Error())
+					&FilterParams{Names: []string{FilterTestFuncTimeout}},
+					InputValues{testKeyEquals: 1, testKeyInt: "2"},
+					FilterValues{testKeyEquals: 2})
+				So(e.Error(), ShouldEqual, ErrFailedExecTimeout.New().Error())
 				So(filtered, ShouldBeTrue)
 			})
 		})
@@ -203,15 +197,15 @@ func TestTarget(t *testing.T) {
 			Convey("will timeout", func() {
 
 				filtered, e := manager.Compare(
-					&filter.FilterParams{
-						Type: filter.CompareTypeConsistent,
+					&FilterParams{
+						Type: CompareTypeConsistent,
 						Names: []string{
 							FilterTestFuncTimeout,
 							FilterTestFuncEquals,
 							FilterTestFuncTestInt}},
-					filter.InputValues{testKeyEquals: 1, testKeyInt: 2},
-					filter.FilterValues{testKeyEquals: 2})
-				So(e.Error(), ShouldEqual, filter.ErrFailedExecTimeout.New().Error())
+					InputValues{testKeyEquals: 1, testKeyInt: 2},
+					FilterValues{testKeyEquals: 2})
+				So(e.Error(), ShouldEqual, ErrFailedExecTimeout.New().Error())
 				So(filtered, ShouldBeTrue)
 			})
 		})
@@ -229,7 +223,7 @@ const (
 	testKeyInt    = "test_key_int"
 )
 
-func FilterTestEquals(req filter.InputValues, cvs filter.FilterValues) (bool, error) {
+func FilterTestEquals(req InputValues, cvs FilterValues) (bool, error) {
 	if len(cvs) == 0 {
 		return false, nil
 	}
@@ -241,12 +235,12 @@ func FilterTestEquals(req filter.InputValues, cvs filter.FilterValues) (bool, er
 	return req[testKeyEquals] == cvs[testKeyEquals], nil
 }
 
-func FilterTestTimeout(_ filter.InputValues, _ filter.FilterValues) (bool, error) {
+func FilterTestTimeout(_ InputValues, _ FilterValues) (bool, error) {
 	time.Sleep(time.Second * 3)
 	return false, nil
 }
 
-func FilterTestInt(req filter.InputValues, _ filter.FilterValues) (bool, error) {
+func FilterTestInt(req InputValues, _ FilterValues) (bool, error) {
 	vs := req[testKeyInt]
 	if vs == nil {
 		return true, nil

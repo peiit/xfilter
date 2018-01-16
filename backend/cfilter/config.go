@@ -5,12 +5,10 @@ import (
 	"hash"
 	"hash/fnv"
 	"time"
-
-	core "github.com/irfansharif/cfilter"
 )
 
 type Filter struct {
-	engine     *core.CFilter
+	engine     *CFilter
 	concurency int
 	timeout    *time.Duration
 }

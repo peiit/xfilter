@@ -1,9 +1,3 @@
-// Package rng implements an Aho-Corasick automata for
-// multi-pattern string matching use. You can use it to scan
-// an object content to find whether there are forbidden
-// words in it.
-// Author: Leesper
-// Inspired by: pyAhocorasick
 package goac
 
 // a Node represents a character of pattern word
