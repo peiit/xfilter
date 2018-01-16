@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"sync"
 
+	"golang.org/x/text/unicode/norm"
+
 	"github.com/sniperkit/xfilter/backend/shamoji"
 	"github.com/sniperkit/xfilter/backend/shamoji/filter"
 	"github.com/sniperkit/xfilter/backend/shamoji/tokenizer"
-	"golang.org/x/text/unicode/norm"
 )
 
 var (
