@@ -48,9 +48,9 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/DavidGamba/ffind/lib/ffind"
-	"github.com/DavidGamba/ffind/semver"
 	"github.com/DavidGamba/go-getoptions"
+	"github.com/sniperkit/xfilter/backend/ffind/lib/ffind"
+	"github.com/sniperkit/xfilter/backend/ffind/semver"
 )
 
 func synopsis() {

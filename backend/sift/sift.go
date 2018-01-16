@@ -31,9 +31,10 @@ import (
 	"sync"
 	"time"
 
+	"github.com/xfilter/backend/sift/gitignore"
+
 	"github.com/svent/go-flags"
 	"github.com/svent/go-nbreader"
-	"github.com/svent/sift/gitignore"
 	"golang.org/x/crypto/ssh/terminal"
 )
 
