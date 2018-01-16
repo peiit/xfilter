@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/antzucaro/matchr"
+	"github.com/sniperkit/xfilter/backend/matchr"
 )
 
 var mtchr *matchr.String

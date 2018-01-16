@@ -1,0 +1,8 @@
+package: github.com/sniperkit/xfilter
+import:
+- package: github.com/dgryski/go-metro
+testImport:
+- package: github.com/leemcloughlin/gofarmhash
+- package: github.com/stretchr/testify
+  subpackages:
+  - assert
